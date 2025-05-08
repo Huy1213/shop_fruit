@@ -7,7 +7,6 @@ import Partner from "@/components/home/Partner";
 export default function Home() {
   return (
     <>
-      <Menu/>
       <Carousel/>
       <Product>Quà tặng trái cây</Product>
       <Partner/>

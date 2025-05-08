@@ -3,6 +3,7 @@ import { Quicksand } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/shared/Header";
 import Footer from "@/components/shared/Footer";
+import Menu from "@/components/home/Menu";
 
 const quicksand = Quicksand({
   variable: '--font-quicksand',
@@ -27,6 +28,7 @@ export default function RootLayout({
       >
         <Header/>
         <main className="max-w-7xl mx-auto">
+          <Menu></Menu>
           {children}
         </main>
         <Footer/>

@@ -34,13 +34,13 @@ export default function Carousel(){
             <figure className="w-full">
                 <Image src={Images[currentIndex]} alt="" width={1280} height={400}/>
             </figure>
-            <div className="absolute top-1/2 left-3 -translate-y-1/2 bg-white w-10 h-10 rounded-full flex items-center justify-center shadow hover:bg-green-500 hover:text-white"
+            <button className="focus:outline absolute top-1/2 left-3 -translate-y-1/2 bg-white w-10 h-10 rounded-full flex items-center justify-center shadow hover:bg-green-500 hover:text-white"
             onClick={handlePrev}>
                 <FontAwesomeIcon icon={faArrowLeft} className="text-xl" />
-            </div>
-            <div onClick={handleNext} className="absolute top-1/2 right-3 -translate-y-1/2 bg-white w-10 h-10 rounded-full flex items-center justify-center shadow hover:bg-green-500 hover:text-white">
+            </button>
+            <button onClick={handleNext} className="focus:outline absolute top-1/2 right-3 -translate-y-1/2 bg-white w-10 h-10 rounded-full flex items-center justify-center shadow hover:bg-green-500 hover:text-white">
                 <FontAwesomeIcon icon={faArrowRight} className="text-xl" />
-            </div>
+            </button>
         </div>
     );
 }

@@ -61,7 +61,10 @@ export default function Header() {
                 <div className='flex space-x-3 items-center'>
                     <div className='text-white relative'  ref={menuRef}>
                         {/* Icon bars */}
-                        <FontAwesomeIcon className='p-3' icon={faBars} onClick={()=> setMenuOpen(!menuOpen)} />
+                        <button onClick={()=> setMenuOpen(!menuOpen)}>
+                            <FontAwesomeIcon className='p-3 ' icon={faBars}  />
+                        </button>
+                        
 
                         {/* menu */}
                         {menuOpen && (
