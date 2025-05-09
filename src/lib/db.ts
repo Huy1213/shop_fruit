@@ -3,7 +3,7 @@ const db = await mysql.createConnection({
     host : 'localhost',
     user : 'root',
     password : '',
-    database : 'topzone_vip',
+    database : 'shop_fruit',
 })
 
 export default db;

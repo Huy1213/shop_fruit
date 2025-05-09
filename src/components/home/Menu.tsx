@@ -1,8 +1,28 @@
+'use client';
 import Link from "next/link";
+import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHouse } from '@fortawesome/free-solid-svg-icons';
 
+interface DanhMuc{
+    MaDM : string;
+    TenDM : string;
+}
+
 export default function Menu(){
+    const [danhMuc,setDanhMuc] = useState<DanhMuc[]>([]);
+    useEffect(()=> {
+        try {
+            const fetchData = async () =>{
+                const res = await fetch("/api/collections");
+                const data = await res.json();
+                setDanhMuc(data);
+            }
+            fetchData();
+        } catch (error) {
+            console.log(error);
+        }
+    },[]);
     return(
         <ul className="flex justify-between mt-5 p-2">
             <li className="w-23 h-23 rounded-md flex items-center justify-center border border-green-300">
@@ -15,52 +35,23 @@ export default function Menu(){
                     Trang chủ
                 </Link>
             </li>
+            {danhMuc.map((data)=>(
+                <li key={data.MaDM} className="w-23 h-23 rounded-md flex items-center justify-center border border-green-300 text-green-600">
+                    <Link href={`/collections/${data.MaDM}`}className="text-center">
+                        {data.TenDM}
+                    </Link>
+                </li>
+            ))}
             <li className="w-23 h-23 rounded-md flex items-center justify-center border border-green-300 text-green-600">
                 <Link href="/" className="text-center">
-                    Trái ngon hôm nay
+                    Câu chuyện thương hiệu
                 </Link>
             </li>
             <li className="w-23 h-23 rounded-md flex items-center justify-center border border-green-300 text-green-600">
                 <Link href="/" className="text-center">
-                    Trái ngon hôm nay
+                    Liên hệ
                 </Link>
             </li>
-            <li className="w-23 h-23 rounded-md flex items-center justify-center border border-green-300 text-green-600">
-                <Link href="/" className="text-center">
-                    Trái ngon hôm nay
-                </Link>
-            </li>
-            <li className="w-23 h-23 rounded-md flex items-center justify-center border border-green-300 text-green-600">
-                <Link href="/" className="text-center">
-                    Trái ngon hôm nay
-                </Link>
-            </li>
-            <li className="w-23 h-23 rounded-md flex items-center justify-center border border-green-300 text-green-600">
-                <Link href="/" className="text-center">
-                    Trái ngon hôm nay
-                </Link>
-            </li>
-            <li className="w-23 h-23 rounded-md flex items-center justify-center border border-green-300 text-green-600">
-                <Link href="/" className="text-center">
-                    Trái ngon hôm nay
-                </Link>
-            </li>
-            <li className="w-23 h-23 rounded-md flex items-center justify-center border border-green-300 text-green-600">
-                <Link href="/" className="text-center">
-                    Trái ngon hôm nay
-                </Link>
-            </li>
-            <li className="w-23 h-23 rounded-md flex items-center justify-center border border-green-300 text-green-600">
-                <Link href="/" className="text-center">
-                    Trái ngon hôm nay
-                </Link>
-            </li>
-            <li className="w-23 h-23 rounded-md flex items-center justify-center border border-green-300 text-green-600">
-                <Link href="/" className="text-center">
-                    Trái ngon hôm nay
-                </Link>
-            </li>
-            
             
         </ul>
     )

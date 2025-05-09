@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/shared/Header";
 import Footer from "@/components/shared/Footer";
 import Menu from "@/components/home/Menu";
+import { CartProvider } from "./contexts/CartContext";
 
 const quicksand = Quicksand({
   variable: '--font-quicksand',
@@ -26,12 +27,16 @@ export default function RootLayout({
       <body
         className={`${quicksand.variable} antialiased`}
       >
+        <CartProvider>
         <Header/>
         <main className="max-w-7xl mx-auto">
           <Menu></Menu>
-          {children}
+          
+            {children}
+          
         </main>
         <Footer/>
+        </CartProvider>
       </body>
     </html>
   );

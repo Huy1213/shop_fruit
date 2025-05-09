@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect, useRef } from 'react';
+import { useRef, useState } from 'react';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
@@ -10,48 +10,26 @@ import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import { faHouse } from '@fortawesome/free-solid-svg-icons';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
-
-interface SanPham{
-    MaMau:string;
-    TenMau:string;
-}
-
-function useSanPham(){
-    const [sanpham, setSanPham] = useState<SanPham[]>([]);
-    useEffect(() => {
-        try {
-            const fetchData = async () =>{
-                const res = await fetch('/api/sanpham');
-                const data = await res.json();
-                setSanPham(data);
-            }
-            fetchData();
-        } catch (error) {
-            console.log(error);
-        }
-    },[]);
-    return sanpham;
-}
-
+import { useCart } from '@/app/contexts/CartContext';
+import { useEffect } from 'react';
 
 export default function Header() {
-    
     const [menuOpen, setMenuOpen] = useState(false);
-
-    const sanpham = useSanPham();
-
     const menuRef = useRef<HTMLDivElement>(null); // Tạo ref
+    
+    // Sử dụng Context API thay vì truy cập localStorage trực tiếp
+    const { cartCount } = useCart();
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
-        if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-            setMenuOpen(false); // Nếu click bên ngoài, đóng menu
-        }
+            if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+                setMenuOpen(false); // Nếu click bên ngoài, đóng menu
+            }
         };
 
         document.addEventListener('mousedown', handleClickOutside);
         return () => {
-        document.removeEventListener('mousedown', handleClickOutside);
+            document.removeEventListener('mousedown', handleClickOutside);
         };
     }, []);
 
@@ -65,7 +43,6 @@ export default function Header() {
                             <FontAwesomeIcon className='p-3 ' icon={faBars}  />
                         </button>
                         
-
                         {/* menu */}
                         {menuOpen && (
                             <div className='absolute z-100 bg-white border border-black/20 shadow-xl w-80 top-14 p-2'>
@@ -124,7 +101,7 @@ export default function Header() {
                             </div>
                         )}                     
                     </div>
-                        {/* Logo */}
+                    {/* Logo */}
                     <Link href="/" className='text-xl font-bold text-white'>
                         SHOPFRUIT
                     </Link>
@@ -148,9 +125,14 @@ export default function Header() {
                     <FontAwesomeIcon icon={faUser} />
                     <div>Tài khoản</div>
                 </Link>
-                <Link href="/" className='text-center text-sm'>
+                <Link href="/cart" className='text-center text-sm relative'>
                     <FontAwesomeIcon icon={faCartShopping} />
                     <div>Giỏ hàng</div>
+                    {cartCount > 0 && (
+                        <span className="absolute top-0 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
+                            {cartCount}
+                        </span>
+                    )}
                 </Link>
             </nav>
         </header>
