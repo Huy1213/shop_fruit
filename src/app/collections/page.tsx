@@ -1,4 +1,3 @@
-import Menu from "@/components/home/Menu";
 import Link from "next/link";
 import Image from "next/image";
 
